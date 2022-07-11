@@ -12,17 +12,34 @@ module "logs" {
 
 module "website" {
   source = "github.com/chgasparoto/terraform-s3-object-notification"
-  name = ""
+  name = "local.domain"
+  acl = "public-read"
+  policy = data.template_file.s3-public-policy.rendered
   force_destroy = !local.has_domain
+
+  versioning = {
+    enable = true
+  }
+
+  filepath = "${path.module}/../website/build"
+  website = {
+    index_document = "index.html"
+    error_document = "index.html"
+  }
+
+  logging ={
+    target_bucket = module.logs.name
+    target_prefix = "access/"
+  }
 }
 
 module "redirect" {
   source = "github.com/chgasparoto/terraform-s3-object-notification"
   name = "www.${local.domain}"
-  acl = "public_read"
+  acl = "public-read"
   force_destroy = !local.has_domain
   
   website = {
-    redirect_all_requests_to = local.domain ? var.domain : module.website.website
+    redirect_all_requests_to = local.has_domain ? var.domain : module.website.website
   }
 }

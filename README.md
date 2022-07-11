@@ -9,3 +9,14 @@ https://github.com/facebook/create-react-app
 ```
 tflocal init -backend=true -backend-config="backend.hcl"
 ```
+ 
+```
+cd ../website
+npm run biild
+```
+cd ..
+
+```
+terraform plan
+terraform apply
+```
