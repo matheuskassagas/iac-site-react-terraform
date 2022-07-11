@@ -1,0 +1,5 @@
+bucket = "tfstate-000000000000"
+key = "site-react-app/terraform.tfstate"
+region = "us-east-1"
+profile = "defalt"
+dynamodb_table = "tflock-tfstate-000000000000"
