@@ -18,8 +18,12 @@ terraform {
 provider "aws" {
   region = "us-east-1"
   profile = "default"
-  access_key = "test"
-  secret_key = "test"
+}
+
+provider "aws" { # # para criacao do certificado no cloudfront
+  region = "eu-central-1"
+  profile = "default"
+  alias = "eu-central-1"
 }
 
 resource "random_pet" "website" {
