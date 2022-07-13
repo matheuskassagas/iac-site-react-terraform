@@ -24,4 +24,5 @@ terraform apply
 # para utilizacao do proprio dominio 
 ```
 terraforma plan -var="domain=<dominio>"
+terraforma apply -var="domain=<dominio>"
 ```

@@ -31,8 +31,8 @@ resource "aws_route53_record" "www" { # # aponta para bucket de redirect
   }
 }
 
-resource "aws_route53_record" "cert_validation" {
-  for_each = {
+resource "aws_route53_record" "cert_validation" { # # referente ao certificado ACM
+  for_each = { # # retorno do acm
     for dvo in aws_acm_certificate.this[0].domain_validation_options : dvo.domain_name => {
       name    = dvo.resource_record_name
       record  = dvo.resource_record_value
