@@ -23,19 +23,19 @@ module "website" {
     enable = true
   }
 
-  filepath = "${path.module}/../website/build"
+  filepath = "${path.module}/../website/build" # # acessando a pasta do website 
   website = {
     index_document = "index.html"
     error_document = "index.html"
   }
 
-  logging ={
-    target_bucket = module.logs.name
+  logging ={ # # setando o logging 
+    target_bucket = module.logs.name # # modulo do log
     target_prefix = "access/"
   }
 }
 
-module "redirect" {
+module "redirect" { # # redirecionamento para website 
   source = "github.com/chgasparoto/terraform-s3-object-notification"
   name = "www.${local.domain}"
   acl = "public-read"
@@ -43,6 +43,6 @@ module "redirect" {
   tags = local.common_tags
   
   website = {
-    redirect_all_requests_to = local.has_domain ? var.domain : module.website.website
+    redirect_all_requests_to = local.has_domain ? var.domain : module.website.website # # domain do bucket 
   }
 }

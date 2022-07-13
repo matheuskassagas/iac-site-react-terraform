@@ -1,6 +1,6 @@
 data "aws_route53_zone" "this" { # # 
-  count = local.has_domain ? 1 : 0
-  name = "${local.domain}."
+  count = local.has_domain ? 1 : 0 # # cria apenas se passar um domain
+  name = "${local.domain}." 
 }
 
 resource "aws_route53_record" "website" { # # aponta para o cloudfront
@@ -8,12 +8,12 @@ resource "aws_route53_record" "website" { # # aponta para o cloudfront
 
   name = local.domain 
   type = "A"
-  zone_id = data.aws_route53_zone.this[0].zone_id # # [0] retorna uma lista acessa o primeiro elemento
+  zone_id = data.aws_route53_zone.this[0].zone_id # # [0] retorna uma lista / acessa o primeiro elemento
 
-  alias { # # onde passando a url do cloudfront
+  alias { # # onde passa a url do cloudfront
     evaluate_target_health = false
-    name = aws_cloudfront_distribution.this.domain_name
-    zone_id = aws_cloudfront_distribution.this.hosted_zone_id
+    name = aws_cloudfront_distribution.this.domain_name # # CDN nome da distribuicao
+    zone_id = aws_cloudfront_distribution.this.hosted_zone_id # # CDN zona da distribuicao
   }
 }
 
