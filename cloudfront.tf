@@ -58,7 +58,7 @@ resource "aws_cloudfront_distribution" "this"{ # # distribuicao
     }
   }
 
-  dynamic "viewer_certificate" {
+  dynamic "viewer_certificate" { # # com dominio personalizado 
     for_each = local.has_domain ? [0] : []
     content {
       acm_certificate_arn = aws_acm_certificate.this[0].arn
